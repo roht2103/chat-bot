@@ -1,8 +1,12 @@
 import { useState } from "react";
-import { CiLogin } from "react-icons/ci";
+import { CiLogin, CiLogout } from "react-icons/ci";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Popover } from "antd";
 export const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const { loginWithRedirect, logout, user, isAuthenticated, isLoading } =
+    useAuth0();
+  console.log(isAuthenticated && user);
   return (
     <nav className="relative bg-white shadow ">
       <div className="container px-6 py-4 mx-auto md:flex md:justify-between md:items-center">
@@ -80,12 +84,38 @@ export const Nav = () => {
           </div>
 
           <div className="flex justify-center md:block">
-            <a
-              className="relative text-gray-700 transition-colors duration-300 transform dark:text-gray-900 dark:hover:text-gray-900"
-              href="#"
-            >
-              <CiLogin className="text-3xl" />
-            </a>
+            {isAuthenticated ? (
+              <section
+                onClick={(e) => {
+                  e.preventDefault();
+                  !isAuthenticated && loginWithRedirect();
+                }}
+              >
+                {isLoading
+                  ? "Loading..."
+                  : isAuthenticated && (
+                      <p className="text-md flex items-center relative text-gray-700 transition-colors duration-300 transform dark:text-gray-900 dark:hover:text-gray-900">
+                        Hello, {user.name}{" "}
+                        <img
+                          src={user.picture}
+                          className="rounded-full h-8 ml-3"
+                          alt=""
+                        />
+                        <CiLogout
+                          title="log out"
+                          className="ml-2 text-3xl cursor-pointer"
+                          onClick={() => logout()}
+                        />
+                      </p>
+                    )}
+              </section>
+            ) : (
+              <CiLogin
+                title="log in"
+                className="text-3xl cursor-pointer"
+                onClick={() => loginWithRedirect()}
+              />
+            )}
           </div>
         </div>
       </div>
