@@ -94,11 +94,11 @@ export const Nav = () => {
                 {isLoading
                   ? "Loading..."
                   : isAuthenticated && (
-                      <p className="text-md flex items-center relative text-gray-700 transition-colors duration-300 transform dark:text-gray-900 dark:hover:text-gray-900">
+                      <p className="text-lg flex items-center relative text-gray-700 transition-colors duration-300 transform dark:text-gray-900 dark:hover:text-gray-900">
                         Hello, {user.name}{" "}
                         <img
                           src={user.picture}
-                          className="rounded-full h-8 ml-3"
+                          className="rounded-full h-9 ml-3"
                           alt=""
                         />
                         <CiLogout
