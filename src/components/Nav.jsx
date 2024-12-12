@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { CiLogin, CiLogout } from "react-icons/ci";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Popover } from "antd";
 export const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { loginWithRedirect, logout, user, isAuthenticated, isLoading } =
     useAuth0();
   console.log(isAuthenticated && user);
   return (
-    <nav className="relative bg-white shadow ">
+    <nav className="fixed top-0 left-0 w-full z-10 bg-white shadow">
       <div className="container px-6 py-4 mx-auto md:flex md:justify-between md:items-center">
         <div className="flex items-center justify-between">
           <a href="#">
