@@ -6,7 +6,7 @@ const { TextArea } = Input;
 export const InputComponent = ({ text, setText, getResponse }) => {
   return (
     <div className="absolute bottom-0 w-full flex items-center justify-center">
-      <div className="bg-gray-200 m-5 p-3 rounded-lg w-3/5 h-fit flex items-center">
+      <div className="bg-gray-200 md:m-5 m-1 p-3 rounded-lg md:w-3/5 w-full h-fit flex-col items-center">
         <TextArea
           onChange={(e) => setText(e.target.value)}
           id="input"
@@ -26,7 +26,7 @@ export const InputComponent = ({ text, setText, getResponse }) => {
             getResponse(text);
             setText("");
           }}
-          className="bg-white rounded-full h-10 w-10 p-2 ml-3 cursor-pointer"
+          className="bg-white rounded-full h-10 w-10 p-2 ml-3 cursor-pointer float-end"
         />
       </div>
     </div>

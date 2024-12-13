@@ -11,16 +11,16 @@ export const ChatBotNav = () => {
   const navigate = useNavigate();
   return (
     <nav className="w-full bg-white shadow">
-      <div className="container px-6 py-4 mx-auto">
+      <div className="container md:px-6 py-4 mx-auto">
         <div className="flex items-center justify-between">
-          <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center justify-between md:gap-3 gap-1">
             <IoIosArrowBack
               title="Back"
-              className="ml-2 text-3xl cursor-pointer text-purple-800"
+              className="md:ml-2 text-3xl cursor-pointer text-purple-800"
               onClick={() => navigate("/")}
             />
             <a href="#">
-              <h1 className="text-3xl text-blue-500 lora tracking-wide">
+              <h1 className="md:text-3xl text-xl text-blue-500 lora tracking-wide">
                 Askora - Chat Bot
               </h1>
             </a>
