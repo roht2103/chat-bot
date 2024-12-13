@@ -19,6 +19,11 @@ export const ChatBotNav = () => {
               className="md:ml-2 text-3xl cursor-pointer text-purple-800"
               onClick={() => navigate("/")}
             />
+            <img
+              src="/logo.png"
+              alt="logo"
+              className="h-12 md:block hidden rounded-full"
+            />
             <a href="#">
               <h1 className="md:text-3xl text-xl text-blue-500 lora tracking-wide">
                 Askora - Chat Bot

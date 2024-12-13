@@ -11,6 +11,11 @@ export const Nav = () => {
     <nav className="fixed top-0 left-0 w-full z-10 bg-[#ffffff60] shadow">
       <div className="container px-6 py-4 mx-auto md:flex md:justify-between md:items-center">
         <div className="flex items-center justify-between">
+          <img
+            src="/logo.png"
+            alt="logo"
+            className="h-12 md:block hidden rounded-full mr-3"
+          />
           <a href="#">
             <h1 className="text-3xl text-blue-500 lora tracking-wide">
               Askora
