@@ -1,6 +1,7 @@
 import "./App.css";
 import { Nav } from "./components/Nav.jsx";
 import { Header } from "./components/Header.jsx";
+import { ChatBot } from "./pages/ChatBot.jsx";
 import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 
 function App() {
@@ -8,15 +9,21 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route
-          path="/"
+          path="/*"
           element={
-            <div className=" h-screen overflow-auto">
-              <Nav />
-              <Header />
-              <Routes>
-                <Route path="/askora-chat-bot" />
-              </Routes>
-            </div>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <div className=" h-screen overflow-auto">
+                    <Nav />
+                    <Header />
+                  </div>
+                }
+              />
+
+              <Route path="/askora-chat-bot" element={<ChatBot />} />
+            </Routes>
           }
         />
       </Routes>
