@@ -6,7 +6,7 @@ export const Chats = ({ chats }) => {
         scrollbarWidth: "none",
         msOverflowStyle: "none",
       }}
-      className="overflow-auto h-[75%] md:text-base text-sm flex justify-center py-5 space-y-4"
+      className="overflow-y-auto h-full flex justify-center py-5 space-y-4"
     >
       <div className="md:w-3/5 md:px-0 px-4 w-full flex flex-col gap-7">
         {chats.length > 0 ? (
