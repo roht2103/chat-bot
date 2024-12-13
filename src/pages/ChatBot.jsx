@@ -1,10 +1,18 @@
 import { ChatBotNav } from "../components/ChatBotNav";
 import { InputComponent } from "../components/InputComponent";
+import { useState } from "react";
+
 export const ChatBot = () => {
+  const [text, setText] = useState();
+  const [response, setResponse] = useState("");
+
+  const getResponse = () => {
+    alert("hello");
+  };
   return (
-    <div className="h-screen flex flex-col border-4 border-green-900 relative">
+    <div className="h-screen flex flex-col relative">
       <ChatBotNav />
-      <InputComponent />
+      <InputComponent text={text} setText={setText} getResponse={getResponse} />
     </div>
   );
 };
