@@ -1,7 +1,9 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import { Button, Flex } from "antd";
 import { Navigate, useNavigate } from "react-router-dom";
 export const Header = () => {
   const navigate = useNavigate();
+  const { loginWithRedirect, user, isAuthenticated, isLoading } = useAuth0();
   return (
     <div className="h-full flex items-center justify-center flex-col">
       <p className="lg:text-[10rem] text-8xl text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 lora tracking-wide animate-gradient">
@@ -14,7 +16,11 @@ export const Header = () => {
         <Button
           type="primary"
           className="text-lg"
-          onClick={() => navigate("/askora-chat-bot")}
+          onClick={() => {
+            isAuthenticated
+              ? navigate("/askora-chat-bot")
+              : loginWithRedirect();
+          }}
         >
           Start a chat
         </Button>
