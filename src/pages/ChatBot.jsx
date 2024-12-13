@@ -1,7 +1,8 @@
+import { ChatBotNav } from "../components/ChatBotNav";
 export const ChatBot = () => {
   return (
     <>
-      <h1>chat bot</h1>
+      <ChatBotNav />
     </>
   );
 };
