@@ -22,13 +22,18 @@ export const Chats = ({ chats }) => {
                 </p>
               </div>
               {/* Response on the left */}
-              <div className="grid justify-items-start">
+              <div className="grid gap-3 justify-items-start">
+                <img src="/logo.png" alt="logo" className="h-10 rounded-full" />
                 <p className="break-words whitespace-pre-wrap">{chat.res}</p>
               </div>
             </div>
           ))
         ) : (
-          <h1 className="text-center text-lg">Hello, how can I help you?</h1>
+          <div className="flex items-center justify-center h-full">
+            <p className="text-gray-400 text-5xl font-semibold">
+              What can I help with?
+            </p>
+          </div>
         )}
       </div>
     </div>
