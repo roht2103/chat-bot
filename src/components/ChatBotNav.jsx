@@ -10,7 +10,7 @@ export const ChatBotNav = () => {
     useAuth0();
   const navigate = useNavigate();
   return (
-    <nav className="fixed top-0 left-0 w-full z-10 bg-[#ffffff60] shadow">
+    <nav className="w-full bg-white shadow">
       <div className="container px-6 py-4 mx-auto">
         <div className="flex items-center justify-between">
           <div className="flex items-center justify-between gap-3">
