@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { CgDetailsMore } from "react-icons/cg";
 import { MdAddTask } from "react-icons/md";
+import { useLocalStorage } from "../useLocalStorage";
 
 export const ReminderSidebar = ({ showTaskbar, setShowTaskbar }) => {
   const taskbarRef = useRef(null);
@@ -11,7 +12,8 @@ export const ReminderSidebar = ({ showTaskbar, setShowTaskbar }) => {
   const [title, setTitle] = useState("");
   const [details, setDetails] = useState("");
   const [date, setDate] = useState("");
-  const [remainders, setRemainders] = useState([]);
+  const [reminders, setReminders] = useState([]);
+  const { set, get } = useLocalStorage("reminders");
 
   const reset = () => {
     setIsAddTask(false);
@@ -28,6 +30,13 @@ export const ReminderSidebar = ({ showTaskbar, setShowTaskbar }) => {
   };
 
   useEffect(() => {
+    const storedReminders = get() || [];
+    const formattedReminders = storedReminders.map((reminder) => ({
+      ...reminder,
+      date: new Date(reminder.timestamp).toLocaleDateString(),
+    }));
+    setReminders(formattedReminders);
+
     if (showTaskbar) {
       document.addEventListener("mousedown", handleClickOutside);
     }
@@ -35,36 +44,52 @@ export const ReminderSidebar = ({ showTaskbar, setShowTaskbar }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showTaskbar]);
-  const formatDate = (inputDate) => {
-    const dateObj = new Date(inputDate);
-    const formatted = dateObj.toISOString().split("T")[0];
-    return formatted;
-  };
+
   const handleToday = () => {
-    const today = formatDate(new Date());
+    const today = new Date().toISOString().split("T")[0];
     setDate(today);
   };
+
   const handleTomorrow = () => {
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
-    setDate(formatDate(tomorrow));
+    setDate(tomorrow.toISOString().split("T")[0]);
   };
 
   const storeReminder = () => {
-    if (title || details) {
-      if (!date) {
-        const today = formatDate(new Date());
-        console.log("Stored:", { title, details, date });
-        setDate(today);
-        reset();
-      } else {
-        console.log("Stored:", { title, details, date });
-        reset();
-      }
-    } else {
-      console.log("Empty fields, no data stored.");
+    if (!title && !details) {
       reset();
+      return;
     }
+
+    const reminderDate = date || new Date().toISOString().split("T")[0];
+    const timestamp = new Date(reminderDate).getTime();
+    const newReminder = { title, details, timestamp };
+
+    const updatedReminders = [...(get() || []), newReminder];
+    set(updatedReminders);
+
+    setReminders(
+      updatedReminders.map((reminder) => ({
+        ...reminder,
+        date: new Date(reminder.timestamp).toLocaleDateString(),
+      }))
+    );
+    reset();
+  };
+
+  const removeReminder = (indexToRemove) => {
+    const updatedReminders = reminders.filter(
+      (_, index) => index !== indexToRemove
+    );
+    set(
+      updatedReminders.map(({ title, details, timestamp }) => ({
+        title,
+        details,
+        timestamp,
+      }))
+    );
+    setReminders(updatedReminders);
   };
 
   useEffect(() => {
@@ -86,7 +111,7 @@ export const ReminderSidebar = ({ showTaskbar, setShowTaskbar }) => {
     return () => {
       document.removeEventListener("mousedown", handleFormOutsideClick);
     };
-  }, [showTaskbar, isAddTask, title, details]);
+  }, [showTaskbar, isAddTask, title, details, date]);
 
   return (
     <div
@@ -168,6 +193,26 @@ export const ReminderSidebar = ({ showTaskbar, setShowTaskbar }) => {
               />
             </span>
           </form>
+        )}
+        {reminders.length > 0 ? (
+          reminders.map((reminder, index) => (
+            <div key={index} className="flex items-center gap-4 p-4 border-b">
+              <input
+                type="checkbox"
+                onChange={() => removeReminder(index)}
+                className="cursor-pointer"
+              />
+              <div>
+                <h3 className="font-bold">{reminder.title}</h3>
+                <p>{reminder.details}</p>
+                <p className="text-sm text-gray-500">{reminder.date}</p>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p className="p-4 text-center text-gray-500">
+            No reminders added yet.
+          </p>
         )}
       </div>
     </div>
