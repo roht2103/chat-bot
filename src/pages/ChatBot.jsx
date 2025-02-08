@@ -7,7 +7,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 export const ChatBot = () => {
   const [text, setText] = useState();
   const [chats, setChats] = useState([]);
-  const API_KEY = "AIzaSyA2xOaQUtb_teLDoGwC9Z3OvPtA10vAVb8";
+  const API_KEY = "AIzaSyBxDoX3V9NFke3h8kiCKUWZ7q2iVOHXNlc";
 
   const getResponse = async (query) => {
     const genAI = new GoogleGenerativeAI(API_KEY);
